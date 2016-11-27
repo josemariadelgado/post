@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01F9C7DDDB21EC3690DF585F /* Pods_post.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D31BB9B4D5E7ACDFE257BFC4 /* Pods_post.framework */; };
-		467F60FA1DE7AD9E004EC4C1 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 467F60F91DE7AD9E004EC4C1 /* icons.ttf */; };
+		466975C11DEB603200BA5A13 /* icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 466975C01DEB603200BA5A13 /* icons.ttf */; };
 		4683ABDE1DE4CB390035D1F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4683ABDD1DE4CB390035D1F8 /* AppDelegate.swift */; };
 		4683ABE01DE4CB390035D1F8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4683ABDF1DE4CB390035D1F8 /* LoginViewController.swift */; };
 		4683ABE31DE4CB390035D1F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4683ABE11DE4CB390035D1F8 /* Main.storyboard */; };
@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		467F60F91DE7AD9E004EC4C1 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
+		466975C01DEB603200BA5A13 /* icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icons.ttf; sourceTree = "<group>"; };
 		4683ABDA1DE4CB380035D1F8 /* post.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = post.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4683ABDD1DE4CB390035D1F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4683ABDF1DE4CB390035D1F8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				4683ABF11DE4CEA50035D1F8 /* GoogleService-Info.plist */,
-				467F60F91DE7AD9E004EC4C1 /* icons.ttf */,
+				466975C01DEB603200BA5A13 /* icons.ttf */,
 				4683ABDC1DE4CB390035D1F8 /* post */,
 				4683ABDB1DE4CB380035D1F8 /* Products */,
 				C8DFB748C357016C5301D1A9 /* Pods */,
@@ -174,7 +174,7 @@
 			files = (
 				4683ABE81DE4CB390035D1F8 /* LaunchScreen.storyboard in Resources */,
 				4683ABF21DE4CEA50035D1F8 /* GoogleService-Info.plist in Resources */,
-				467F60FA1DE7AD9E004EC4C1 /* icons.ttf in Resources */,
+				466975C11DEB603200BA5A13 /* icons.ttf in Resources */,
 				4683ABE51DE4CB390035D1F8 /* Assets.xcassets in Resources */,
 				4683ABE31DE4CB390035D1F8 /* Main.storyboard in Resources */,
 			);

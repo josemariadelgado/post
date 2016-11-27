@@ -12,12 +12,12 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 
-class UploadPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UploadPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     var textView: UITextView = {
         var textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
+        textView.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
         textView.textColor = .white
         textView.layer.cornerRadius = 0
         
@@ -49,6 +49,28 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         return button
     }()
     
+    lazy var cancelButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.setTitleColor(UIColor.white, for: .normal)
+        
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var textViewCharCountLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0"
+        label.font = UIFont.italicSystemFont(ofSize: 16)
+        label.textColor = UIColor.white
+        
+        return label
+    }()
+    
     lazy var sendButton: UIButton = {
         var button = UIButton(type: .system)
         //button.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +78,9 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(registerPostIntoDatabaseWithUID), for: .touchUpInside)
-        button.backgroundColor = UIColor(red: 70, green: 170, blue: 150)
+        button.backgroundColor = UIColor(red: 8, green: 170, blue: 130)
+        button.alpha = 0.3
+        button.isEnabled = false
         
         return button
     }()
@@ -66,26 +90,15 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         //self.view.addSubview(profileImageView)
        // self.view.addSubview(register)
         //self.view.addSubview(select)
-        self.view.addSubview(textView)
-        
-        //_ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(registerPostIntoDatabaseWithUID), userInfo: nil, repeats: true)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         
-        let sendButtonView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-        sendButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: sendButtonView.frame.height)
-        sendButtonView.addSubview(self.sendButton)
-        
-        textView.inputAccessoryView = sendButtonView
-        
-        self.view.backgroundColor = UIColor(red: 100, green: 200, blue: 180)
+        self.view.backgroundColor = UIColor(red: 38, green: 200, blue: 160)
         self.textView.backgroundColor = view.backgroundColor
+        self.textView.delegate = self
         
-        textView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-        textView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        textView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
-        textView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.setupConstraints()
         
         /*profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
          profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
@@ -100,6 +113,12 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
         register.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         register.heightAnchor.constraint(equalToConstant: 50).isActive = true*/
         
+    }
+    
+    func goBack() {
+        self.textView.resignFirstResponder()
+        self.sendButton.alpha = 0
+        self.dismiss(animated: true, completion: nil)
     }
     
     /*func handleRegister() {
@@ -187,6 +206,43 @@ class UploadPostViewController: UIViewController, UIImagePickerControllerDelegat
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("canceled picker")
         dismiss(animated: true, completion: nil)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let charCount = self.textView.text.characters.count
+        let whitespaceSet = NSCharacterSet.whitespaces
+        let textViewText = self.textView.text.trimmingCharacters(in: whitespaceSet)
+        self.textViewCharCountLabel.text = String(charCount)
+        if charCount < 1 || charCount > 200 || textViewText.isEmpty {
+            self.sendButton.isEnabled = false
+            self.sendButton.alpha = 0.3
+        } else {
+            self.sendButton.isEnabled = true
+            self.sendButton.alpha = 1
+        }
+    }
+    
+    func setupConstraints() {
+        self.view.addSubview(textView)
+        self.view.addSubview(textViewCharCountLabel)
+        self.view.addSubview(cancelButton)
+        
+        let sendButtonView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+        self.sendButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: sendButtonView.frame.height)
+        sendButtonView.addSubview(self.sendButton)
+        self.textView.inputAccessoryView = sendButtonView
+        
+        textView.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 10).isActive = true
+        textView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        textView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -20).isActive = true
+        textView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        
+        textViewCharCountLabel.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 5).isActive = true
+        textViewCharCountLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

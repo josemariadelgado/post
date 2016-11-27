@@ -26,9 +26,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("\u{e900}", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor(red: 100, green: 200, blue: 180)
+        button.backgroundColor = UIColor(red: 38, green: 200, blue: 160)
         button.layer.cornerRadius = 40
-        button.titleLabel?.font = UIFont(name: "icons", size: 65)
+        button.titleLabel?.font = UIFont(name: "icons", size: 40)
         button.addTarget(self, action: #selector(goPost), for: .touchUpInside)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
@@ -49,9 +49,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.addSubview(self.refreshController)
         self.tableView.alpha = 0
         self.tableView.separatorStyle = .none
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 100, green: 200, blue: 180).withAlphaComponent(0.9)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 38, green: 200, blue: 160)
         
-        transition.duration = 0.3
+        self.transition.duration = 0.3
         
         let confettiView = SAConfettiView(frame: self.view.bounds)
         //view.addSubview(confettiView)
@@ -147,7 +147,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
             if difference.second! > 20 && difference.minute! == 0 {
                 print("\(difference.second)s.")
                 let seconds = difference.second! == 1 ? "SECOND" : "SECONDS"
-                timeAgo = "\(difference.second!) \(seconds) ago"
+                timeAgo = "\(difference.second!) \(seconds) AGO"
             }
             if difference.minute! > 0 && difference.hour! == 0 {
                 print("\(difference.minute)m.")
